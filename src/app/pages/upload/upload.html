@@ -1,0 +1,88 @@
+<section class="upload-page">
+  <div class="section-header">
+    <div>
+      <h2>Upload CSV</h2>
+      <p>Upload brokerage trade transactions using a CSV file.</p>
+    </div>
+  </div>
+
+  <div class="upload-panel">
+    <div class="upload-box">
+      <h3>Select Trade CSV File</h3>
+
+      <p class="helper-text">
+        Expected columns:
+        tradeId, customerId, accountNumber, symbol, tradeType, quantity, price,
+        tradeDate, settlementDate, dividendAmount
+      </p>
+
+      <input
+        type="file"
+        accept=".csv"
+        (change)="onFileSelected($event)"
+      />
+
+      <div *ngIf="selectedFile" class="file-info">
+        <strong>Selected File:</strong>
+        <span>{{ selectedFile.name }}</span>
+      </div>
+
+      <div class="actions">
+        <button class="primary" (click)="uploadCsv()" [disabled]="isUploading">
+          {{ isUploading ? 'Uploading...' : 'Upload CSV' }}
+        </button>
+
+        <button class="secondary" (click)="reset()" [disabled]="isUploading">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <div class="sample-box">
+      <h3>Sample CSV Format</h3>
+
+      <pre>tradeId,customerId,accountNumber,symbol,tradeType,quantity,price,tradeDate,settlementDate,dividendAmount
+T5001,CUST002,ACC2001,MSFT,BUY,100,300.00,2025-01-15,2025-01-17,0
+T5002,CUST002,ACC2001,MSFT,SELL,40,350.00,2025-08-10,2025-08-12,20</pre>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="success-box">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="uploadResult" class="result-panel">
+    <h3>Upload Result</h3>
+
+    <div class="cards">
+      <div class="card">
+        <span>Total Records</span>
+        <strong>{{ uploadResult.totalRecords }}</strong>
+      </div>
+
+      <div class="card success">
+        <span>Successful Records</span>
+        <strong>{{ uploadResult.successfulRecords }}</strong>
+      </div>
+
+      <div class="card danger">
+        <span>Failed Records</span>
+        <strong>{{ uploadResult.failedRecords }}</strong>
+      </div>
+    </div>
+
+    <div *ngIf="uploadResult.errors.length > 0" class="error-list">
+      <h4>Row-Level Errors</h4>
+
+      <ul>
+        <li *ngFor="let error of uploadResult.errors">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

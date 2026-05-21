@@ -1,0 +1,107 @@
+<section class="dashboard">
+  <div class="section-header">
+    <div>
+      <h2>Dashboard</h2>
+      <p>Overview of brokerage trades, gains/losses, and tax liability.</p>
+    </div>
+
+    <button (click)="loadDashboardData()">Refresh</button>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Loading dashboard data...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <span>Total Trades</span>
+      <strong>{{ totalTrades }}</strong>
+    </div>
+
+    <div class="card">
+      <span>BUY Trades</span>
+      <strong>{{ totalBuyTrades }}</strong>
+    </div>
+
+    <div class="card">
+      <span>SELL Trades</span>
+      <strong>{{ totalSellTrades }}</strong>
+    </div>
+
+    <div class="card">
+      <span>Total Tax Liability</span>
+      <strong>${{ taxSummary?.totalTaxLiability || 0 }}</strong>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="panel">
+      <h3>Tax Summary - CUST001</h3>
+
+      <div class="summary-row">
+        <span>Short-Term Gain</span>
+        <strong>${{ taxSummary?.shortTermGain || 0 }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Long-Term Gain</span>
+        <strong>${{ taxSummary?.longTermGain || 0 }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Dividend Income</span>
+        <strong>${{ taxSummary?.dividendIncome || 0 }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Short-Term Tax</span>
+        <strong>${{ taxSummary?.shortTermTax || 0 }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Dividend Tax</span>
+        <strong>${{ taxSummary?.dividendTax || 0 }}</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Recent Trades</h3>
+
+      <table *ngIf="trades.length > 0">
+        <thead>
+        <tr>
+          <th>Trade ID</th>
+          <th>Customer</th>
+          <th>Symbol</th>
+          <th>Type</th>
+          <th>Trade Date</th>
+          <th>Amount</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let trade of trades">
+          <td>{{ trade.tradeId }}</td>
+          <td>{{ trade.customerId }}</td>
+          <td>{{ trade.symbol }}</td>
+          <td>
+              <span class="badge" [class.sell]="trade.tradeType === 'SELL'">
+                {{ trade.tradeType }}
+              </span>
+          </td>
+          <td>{{ trade.tradeDate }}</td>
+          <td>${{ trade.tradeAmount || 0 }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="trades.length === 0" class="empty-text">
+        No trades found. Create trades from IntelliJ HTTP Client or upload a CSV file.
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+<section class="trades-page">
+  <div class="section-header">
+    <div>
+      <h2>Trades</h2>
+      <p>Search, filter, and review brokerage trade transactions.</p>
+    </div>
+
+    <button (click)="loadTrades()">Refresh</button>
+  </div>
+
+  <div class="filter-panel">
+    <div class="field">
+      <label>Customer ID</label>
+      <input
+        type="text"
+        [(ngModel)]="customerId"
+        placeholder="Example: CUST001"
+      />
+    </div>
+
+    <div class="field">
+      <label>Symbol</label>
+      <input
+        type="text"
+        [(ngModel)]="symbol"
+        placeholder="Example: AAPL"
+      />
+    </div>
+
+    <div class="field">
+      <label>Trade Type</label>
+      <select [(ngModel)]="tradeType">
+        <option value="">All</option>
+        <option value="BUY">BUY</option>
+        <option value="SELL">SELL</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button class="primary" (click)="searchTrades()">Search</button>
+      <button class="secondary" (click)="clearFilters()">Clear</button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Loading trades...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div class="table-panel">
+    <div class="table-header">
+      <h3>Trade Results</h3>
+      <span>Total Records: {{ totalElements }}</span>
+    </div>
+
+    <table *ngIf="trades.length > 0">
+      <thead>
+      <tr>
+        <th>Trade ID</th>
+        <th>Customer</th>
+        <th>Account</th>
+        <th>Symbol</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Trade Date</th>
+        <th>Settlement Date</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let trade of trades">
+        <td>{{ trade.tradeId }}</td>
+        <td>{{ trade.customerId }}</td>
+        <td>{{ trade.accountNumber }}</td>
+        <td>{{ trade.symbol }}</td>
+        <td>
+            <span class="badge" [class.sell]="trade.tradeType === 'SELL'">
+              {{ trade.tradeType }}
+            </span>
+        </td>
+        <td>{{ trade.quantity }}</td>
+        <td>${{ trade.price }}</td>
+        <td>${{ trade.tradeAmount || 0 }}</td>
+        <td>{{ trade.tradeDate }}</td>
+        <td>{{ trade.settlementDate }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="trades.length === 0 && !isLoading" class="empty-text">
+      No trades found for the selected filters.
+    </p>
+
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="page === 0">
+        Previous
+      </button>
+
+      <span>Page {{ page + 1 }}</span>
+
+      <button
+        (click)="nextPage()"
+        [disabled]="(page + 1) * size >= totalElements"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</section>

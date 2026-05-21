@@ -1,0 +1,177 @@
+.trades-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: #6b7280;
+  }
+
+  button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.filter-panel,
+.table-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.filter-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-weight: 700;
+    color: #374151;
+  }
+
+  input,
+  select {
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 14px;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+
+  button {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .secondary {
+    background: #e5e7eb;
+    color: #111827;
+  }
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 {
+    margin: 0;
+  }
+
+  span {
+    color: #6b7280;
+    font-weight: 600;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+  }
+
+  th {
+    color: #6b7280;
+    font-size: 13px;
+  }
+}
+
+.badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge.sell {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  align-items: center;
+  margin-top: 18px;
+
+  button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 9px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+  }
+}
+
+.info-box {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.error-box {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.empty-text {
+  color: #6b7280;
+}

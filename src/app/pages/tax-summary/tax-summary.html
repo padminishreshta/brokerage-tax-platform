@@ -1,0 +1,146 @@
+<section class="tax-page">
+  <div class="section-header">
+    <div>
+      <h2>Tax Summary</h2>
+      <p>Generate customer-level and annual tax reports.</p>
+    </div>
+  </div>
+
+  <div class="search-panel">
+    <div class="field">
+      <label>Customer ID</label>
+      <input
+        type="text"
+        [(ngModel)]="customerId"
+        placeholder="Example: CUST001"
+      />
+    </div>
+
+    <div class="field">
+      <label>Tax Year</label>
+      <input
+        type="number"
+        [(ngModel)]="taxYear"
+        placeholder="Example: 2025"
+      />
+    </div>
+
+    <div class="actions">
+      <button class="primary" (click)="loadCustomerSummary()">
+        Customer Summary
+      </button>
+
+      <button class="secondary" (click)="loadAnnualSummary()">
+        Annual Report
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="info-box">
+    Loading tax summary...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="summary" class="cards">
+    <div class="card">
+      <span>Customer</span>
+      <strong>{{ summary.customerId }}</strong>
+    </div>
+
+    <div class="card">
+      <span>Tax Year</span>
+      <strong>{{ summary.taxYear || 'All' }}</strong>
+    </div>
+
+    <div class="card">
+      <span>Total Gain/Loss</span>
+      <strong>${{ summary.totalRealizedGainLoss }}</strong>
+    </div>
+
+    <div class="card highlight">
+      <span>Total Tax Liability</span>
+      <strong>${{ summary.totalTaxLiability }}</strong>
+    </div>
+  </div>
+
+  <div *ngIf="summary" class="summary-grid">
+    <div class="panel">
+      <h3>Tax Breakdown</h3>
+
+      <div class="summary-row">
+        <span>Short-Term Gain</span>
+        <strong>${{ summary.shortTermGain }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Long-Term Gain</span>
+        <strong>${{ summary.longTermGain }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Dividend Income</span>
+        <strong>${{ summary.dividendIncome }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Short-Term Tax</span>
+        <strong>${{ summary.shortTermTax }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Long-Term Tax</span>
+        <strong>${{ summary.longTermTax }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Dividend Tax</span>
+        <strong>${{ summary.dividendTax }}</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Taxable Trade Details</h3>
+
+      <table *ngIf="summary.taxableTrades.length > 0">
+        <thead>
+        <tr>
+          <th>Buy Trade</th>
+          <th>Sell Trade</th>
+          <th>Symbol</th>
+          <th>Quantity</th>
+          <th>Buy Price</th>
+          <th>Sell Price</th>
+          <th>Gain/Loss</th>
+          <th>Holding Days</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let trade of summary.taxableTrades">
+          <td>{{ trade.buyTradeId }}</td>
+          <td>{{ trade.sellTradeId }}</td>
+          <td>{{ trade.symbol }}</td>
+          <td>{{ trade.quantity }}</td>
+          <td>${{ trade.buyPrice }}</td>
+          <td>${{ trade.sellPrice }}</td>
+          <td>${{ trade.realizedGainLoss }}</td>
+          <td>{{ trade.holdingDays }}</td>
+          <td>
+              <span class="badge">
+                {{ trade.holdingType }}
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="summary.taxableTrades.length === 0" class="empty-text">
+        No taxable SELL trades found for this customer/year.
+      </p>
+    </div>
+  </div>
+</section>
