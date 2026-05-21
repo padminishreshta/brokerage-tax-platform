@@ -1,0 +1,171 @@
+.upload-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-header {
+  h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: #6b7280;
+  }
+}
+
+.upload-panel {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 20px;
+}
+
+.upload-box,
+.sample-box,
+.result-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.upload-box h3,
+.sample-box h3,
+.result-panel h3 {
+  margin-top: 0;
+}
+
+.helper-text {
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+input[type='file'] {
+  display: block;
+  margin: 18px 0;
+  border: 1px dashed #94a3b8;
+  padding: 18px;
+  border-radius: 12px;
+  width: 100%;
+  background: #f8fafc;
+}
+
+.file-info {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+
+  button {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+  }
+
+  .primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .secondary {
+    background: #e5e7eb;
+    color: #111827;
+  }
+}
+
+.sample-box pre {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 18px;
+  border-radius: 12px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+.success-box {
+  background: #ecfdf5;
+  color: #047857;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.error-box {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px;
+
+  span {
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 28px;
+  }
+}
+
+.card.success {
+  background: #ecfdf5;
+
+  strong {
+    color: #047857;
+  }
+}
+
+.card.danger {
+  background: #fef2f2;
+
+  strong {
+    color: #b91c1c;
+  }
+}
+
+.error-list {
+  margin-top: 22px;
+  background: #fff7ed;
+  border-radius: 12px;
+  padding: 16px;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  li {
+    margin-bottom: 8px;
+    color: #9a3412;
+  }
+}

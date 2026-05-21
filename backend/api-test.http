@@ -1,0 +1,134 @@
+### =========================================================
+### 1. Get all trades
+### =========================================================
+GET http://localhost:8080/api/trades
+
+
+### =========================================================
+### 2. Create BUY trade - AAPL
+### =========================================================
+POST http://localhost:8080/api/trades
+Content-Type: application/json
+
+{
+  "tradeId": "T3009",
+  "customerId": "CUST001",
+  "accountNumber": "ACC1001",
+  "symbol": "AAPL",
+  "tradeType": "BUY",
+  "quantity": 100,
+  "price": 150.25,
+  "tradeDate": "2025-01-10",
+  "settlementDate": "2025-01-12",
+  "dividendAmount": 0
+}
+
+
+### =========================================================
+### 3. Create SELL trade - AAPL
+### =========================================================
+POST http://localhost:8080/api/trades
+Content-Type: application/json
+
+{
+  "tradeId": "T3008",
+  "customerId": "CUST001",
+  "accountNumber": "ACC1001",
+  "symbol": "AAPL",
+  "tradeType": "SELL",
+  "quantity": 50,
+  "price": 170.00,
+  "tradeDate": "2025-06-10",
+  "settlementDate": "2025-06-12",
+  "dividendAmount": 25
+}
+
+
+### =========================================================
+### 4. Get BUY trade by trade ID
+### =========================================================
+GET http://localhost:8080/api/trades/T3001
+
+
+### =========================================================
+### 5. Get SELL trade by trade ID
+### =========================================================
+GET http://localhost:8080/api/trades/T3002
+
+
+### =========================================================
+### 6. Search trades by customer
+### =========================================================
+GET http://localhost:8080/api/trades?customerId=CUST001
+
+
+### =========================================================
+### 7. Search trades by symbol
+### =========================================================
+GET http://localhost:8080/api/trades?symbol=AAPL
+
+
+### =========================================================
+### 8. Search trades by trade type
+### =========================================================
+GET http://localhost:8080/api/trades?tradeType=BUY
+
+
+### =========================================================
+### 9. Search trades with pagination
+### =========================================================
+GET http://localhost:8080/api/trades?page=0&size=5
+
+
+### =========================================================
+### 10. Tax summary by customer
+### =========================================================
+GET http://localhost:8080/api/tax/customer/CUST001
+
+
+### =========================================================
+### 11. Annual tax report
+### =========================================================
+GET http://localhost:8080/api/tax/customer/CUST001/year/2025
+
+
+### =========================================================
+### 12. Upload trades CSV
+### IMPORTANT:
+### Update file path if your sample-trades.csv is in another location.
+### If your file is in Downloads, use:
+### < C:\Users\banga\Downloads\sample-trades.csv
+### =========================================================
+POST http://localhost:8080/api/trades/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="sample-trades.csv"
+Content-Type: text/csv
+
+< C:\Users\banga\Downloads\sample-trades.csv
+--boundary--
+
+
+### =========================================================
+### 13. Verify uploaded CSV trades - customer CUST002
+### =========================================================
+GET http://localhost:8080/api/trades?customerId=CUST002
+
+
+### =========================================================
+### 14. Verify uploaded CSV trades - customer CUST003
+### =========================================================
+GET http://localhost:8080/api/trades?customerId=CUST003
+
+
+### =========================================================
+### 15. Tax summary for uploaded CSV customer CUST002
+### =========================================================
+GET http://localhost:8080/api/tax/customer/CUST001
+
+
+### =========================================================
+### 16. Annual tax report for uploaded CSV customer CUST002
+### =========================================================
+GET http://localhost:8080/api/tax/customer/CUST002/year/2025
