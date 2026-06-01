@@ -32,11 +32,12 @@ pipeline {
 
                 sh '''
                 echo "Stopping old backend if running..."
-                pkill -f brokerage-tax || true
+                pkill -f "tax-0.0.1-SNAPSHOT.jar" || true
 
                 echo "Starting backend..."
-                nohup java -jar backend/target/*.jar > app.log 2>&1 &
+                nohup java -jar backend/target/tax-0.0.1-SNAPSHOT.jar > backend-app.log 2>&1 &
 
+                sleep 5
                 echo "Application deployed successfully"
                 '''
             }
